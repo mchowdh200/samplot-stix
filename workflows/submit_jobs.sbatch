@@ -14,6 +14,7 @@
 #SBATCH --error=/Users/much8161/Repositories/samplot-stix/workflows/log/snakemake-make-indices-%j.err
 # =============================================================================
 
+rm log/*.out log/*.err
 snakemake -s make-pca-indices.smk \
           --use-conda --conda-frontend mamba \
           --cluster-config conf/cluster_config.yaml \
