@@ -16,9 +16,10 @@ config = SimpleNamespace(**config)
 # =============================================================================
 
 rule All:
-    f'{outdir}/done', # dummy output to check what files are actually output
-    f'{outdir}/normal_list.txt',
-    f'{outdir}/tumor_list.txt',
+    input:
+        f'{outdir}/done', # dummy output to check what files are actually output
+        f'{outdir}/normal_list.txt',
+        f'{outdir}/tumor_list.txt',
 
 rule GetTumorNormalBedLists:
     input:
