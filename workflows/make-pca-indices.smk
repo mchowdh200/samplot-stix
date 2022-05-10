@@ -17,7 +17,7 @@ config = SimpleNamespace(**config)
 
 rule All:
     input:
-        f'{config.outdir}/done', # dummy output to check what files are actually output
+        # f'{config.outdir}/done', # dummy output to check what files are actually output
         f'{config.outdir}/normal_list.txt',
         f'{config.outdir}/tumor_list.txt',
 
