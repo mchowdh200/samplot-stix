@@ -16,9 +16,11 @@
 
 snakemake -s make-pca-indices.smk \
           --use-conda --conda-frontend mamba \
+          --cluster-config conf/cluster_config.yaml \
           --cluster "sbatch -A {cluster.account} \\
                             -t {cluster.time} \\
                             -N {cluster.nodes} \\
                             -p {cluster.partition} \\
                             --mem={cluster.mem} \\
-                            --error {cluster.error}"
+                            --error {cluster.error}" \
+          --jobs 1
