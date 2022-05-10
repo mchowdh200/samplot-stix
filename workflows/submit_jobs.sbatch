@@ -19,6 +19,7 @@ snakemake -s make-pca-indices.smk \
           --cluster-config conf/cluster_config.yaml \
           --cluster "sbatch -t {cluster.time} \\
                             -N {cluster.nodes} \\
+                            -n {cluster.ntasks-per-node} \\
                             -p {cluster.partition} \\
                             --mem={cluster.mem} \\
                             --error {cluster.error}" \
