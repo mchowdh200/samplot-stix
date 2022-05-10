@@ -6,10 +6,9 @@ set -eu
 # lists by if they are tumor or normal associated
 
 indir=$1
-normal_out=$2
-tumor_out=$3
-
-donor_table="../data_listings/donor_table.tsv"
+donor_table=$2
+normal_out=$3
+tumor_out=$4
 fid2type=$(tail -n+2 $donor_table | cut -f2,7)
 normal_ids=$(echo "$fid2type" | grep -i normal | cut -f1 | tr '\n' '|')
 tumor_ids=$(echo "$fid2type" | grep -i tumour | cut -f1 | tr '\n' '|')
