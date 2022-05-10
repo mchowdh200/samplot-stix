@@ -1,0 +1,18 @@
+# used to configure job submission at the global/rule level
+
+__default__:
+  account: much8161
+  partition: short
+  time: 00:01:00
+  nodes: 1
+  ntasks-per-node: 1
+
+GetTumorNormalBedLists :
+  job-name: GetTumorNormalBedLists
+  account: much8161
+  partition: short
+  time: 00:01:00
+  nodes: 1
+  ntasks-per-node: 1
+  mem: 1gb
+  error: log/GetTumornormalBedLists-%j.err

@@ -1,0 +1,25 @@
+#!/bin/bash
+# Main snakemake job:
+# Submits snakemake jobs as individual slurm jobs
+# =============================================================================
+#SBATCH -p short # Partition or queue. In this case, short!
+#SBATCH --job-name=snakemake-make-indices
+#SBATCH --mail-type=None # Mail events (NONE, BEGIN, END, FAIL, ALL)
+#SBATCH --mail-user=much8161@colorado.edu
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --mem=1gb
+#SBATCH --time=00:20:00 # Time limit hrs:min:sec
+#SBATCH --output=/Users/much8161/Repositories/samplot-stix/workflows/log/snakemake-make-indices-%j.out
+#SBATCH --error=/Users/much8161/Repositories/samplot-stix/workflows/log/snakemake-make-indices-%j.err
+# =============================================================================
+
+conda activate snakemake
+snakemake -s make-pca-indices.smk \
+          --use-conda --conda-frontend mamba \
+          --cluster "sbatch -A {cluster.account} \\
+                            -t {cluster.time} \\
+                            -N {cluster.nodes} \\
+                            -p {cluster.partition} \\
+                            --mem={cluster.mem} \\
+                            --error {cluster.error}"
