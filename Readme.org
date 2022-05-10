@@ -1,0 +1,2 @@
+#+TITLE: Samplot-STIX prototypes
+Snakemake workflows for samplot-stix hybrid ideas
