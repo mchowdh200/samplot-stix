@@ -15,3 +15,5 @@ cd stix
 make
 mv bin/stix ../workflows/bin/
 
+conda install -y -c conda-forge mamba
+mamba create -y -c bioconda snakemake
