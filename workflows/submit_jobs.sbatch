@@ -10,11 +10,10 @@
 #SBATCH --ntasks=1
 #SBATCH --mem=1gb
 #SBATCH --time=00:20:00 # Time limit hrs:min:sec
-#SBATCH --output=/Users/much8161/Repositories/samplot-stix/workflows/log/snakemake-make-indices-%j.out
-#SBATCH --error=/Users/much8161/Repositories/samplot-stix/workflows/log/snakemake-make-indices-%j.err
+#SBATCH --output=/Users/much8161/Repositories/samplot-stix/workflows/log/snakemake-make-indices.out
+#SBATCH --error=/Users/much8161/Repositories/samplot-stix/workflows/log/snakemake-make-indices.err
 # =============================================================================
 
-rm log/*.out log/*.err
 snakemake -s make-pca-indices.smk \
           --use-conda --conda-frontend mamba \
           --cluster-config conf/cluster_config.yaml \
