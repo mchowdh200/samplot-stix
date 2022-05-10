@@ -1,3 +1,5 @@
+
+import os
 from types import SimpleNamespace
 ## Setup
 # =============================================================================
@@ -18,8 +20,9 @@ config = SimpleNamespace(**config)
 rule All:
     input:
         # f'{config.outdir}/done', # dummy output to check what files are actually output
-        f'{config.outdir}/normal_list.txt',
-        f'{config.outdir}/tumor_list.txt',
+        normal = f'{config.outdir}/normal_list.txt',
+        tumor = f'{config.outdir}/tumor_list.txt',
+        donor_list = os.path.abspath(config.donor_table),
 
 rule GetTumorNormalBedLists:
     input:
@@ -28,7 +31,9 @@ rule GetTumorNormalBedLists:
         normal = f'{config.outdir}/normal_list.txt',
         tumor = f'{config.outdir}/tumor_list.txt',
     shell:
-        'bash scripts/get_tumor_file_ids.sh {input} {output.normal} {output.tumor}'
+        """
+        bash scripts/get_tumor_file_ids.sh {input} {output.normal} {output.tumor}
+        """
 
 ### TODO may need to split up to create the giggle index
 ### TODO can you create one big stix index and then
