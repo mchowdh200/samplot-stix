@@ -1,0 +1,9 @@
+
+# path to where the excord bed files are
+beds: "/scratch/Shares/layer/stix/indices/pca/bed"
+
+# path to donor information table
+donor_table: "data/donor_table.tsv"
+
+# output base directory
+outdir: "/scratch/Shares/layer/stix/workspace"
