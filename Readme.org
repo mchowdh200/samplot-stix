@@ -1,2 +1,8 @@
 #+TITLE: Samplot-STIX prototypes
 Snakemake workflows for samplot-stix hybrid ideas
+
+* Install
+#+BEGIN_SRC bash
+  cd setup
+  bash setup.sh
+#+END_SRC
