@@ -32,6 +32,8 @@ rule MakeGiggleNormal:
         bed_list = rules.GetTumorNormalBedLists.output.normal,
     output:
         directory(f'{config.outdir}/normals')
+    threads:
+        1
     shell:
         f"""
         bin/giggle index -i {config.beds}/$(<{{input.bed_list}}) \\
@@ -43,6 +45,8 @@ rule MakeGiggleTumor:
         bed_list = rules.GetTumorNormalBedLists.output.tumor,
     output:
         directory(f'{config.outdir}/tumors')
+    threads:
+        1
     shell:
         f"""
         bin/giggle index -i {config.beds}/$(<{{input.bed_list}}) \\
