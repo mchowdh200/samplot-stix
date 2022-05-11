@@ -8,8 +8,8 @@ __default__:
   ntasks: 1
   ntasks-per-node: 1
   mem: 1gb
-  output: "{rule}-%j.out"
-  error: "{rule}-%j.err"
+  output: "log/{rule}-%j.out"
+  error: "log/{rule}-%j.err"
 
 MakeGiggleNormal:
   time: 720 # minutes
