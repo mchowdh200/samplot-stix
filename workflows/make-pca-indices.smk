@@ -35,7 +35,7 @@ rule MakeGiggleNormal:
     shell:
         f"""
         bin/giggle index -i {config.beds}/$(<{{input.bed_list}}) \\
-            -o {output} -s -f
+            -o {{output}} -s -f
         """
 
 rule MakeGiggleTumor:
