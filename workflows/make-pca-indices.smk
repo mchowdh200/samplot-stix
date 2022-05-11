@@ -85,7 +85,8 @@ rule MakeStixDBs:
     shell:
         # -c is the column # of Alt_File
         f"""
-        cd bin # track down this bug
+        bin_dir=$PWD/bin
+        cd {outdir} # track down this bug
         ./stix -i {config.beds} -p {{input.normal}} -d {{output.normal}} -c 7
         ./stix -i {config.beds} -p {{input.tumor}} -d {{output.tumor}} -c 7
         """
