@@ -37,7 +37,7 @@ rule MakeGiggleNormal:
         f'{config.outdir}/normal_giggle_done'
     shell:
         f"""
-        bin/giggle index -i bed/$(<{{input.bed_list}}) \\
+        bin/giggle index -i {config.beds}/$(<{{input.bed_list}}) \\
             -o {config.outdir}/normals -s -f
         touch {{output}}
         """
