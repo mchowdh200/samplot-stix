@@ -7,7 +7,7 @@
 #SBATCH --mail-type=None # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=much8161@colorado.edu
 #SBATCH --nodes=1
-#SBATCH --ntasks=1
+#SBATCH --ntasks=2
 #SBATCH --mem=1gb
 #SBATCH --time=12:00:00 # Time limit hrs:min:sec
 #SBATCH --output=/Users/much8161/Repositories/samplot-stix/workflows/log/snakemake-make-indices.out
@@ -24,4 +24,4 @@ snakemake -s make-pca-indices.smk \
                             -p {cluster.partition} \\
                             --mem={cluster.mem} \\
                             --error {cluster.error}" \
-          --jobs 1
+          --jobs 2
