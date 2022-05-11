@@ -11,7 +11,7 @@ config = SimpleNamespace(**config)
 
 rule All:
     input:
-        f'{outdir}/normal_giggle_done',
+        f'{config.outdir}/normal_giggle_done',
         f'{config.outdir}/normal_list.txt',
         f'{config.outdir}/tumor_list.txt',
 
