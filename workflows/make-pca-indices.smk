@@ -53,5 +53,25 @@ rule MakeGiggleTumor:
             -o {{output}} -s -f
         """
 
+## Stix Indices
+# ==============================================================================
+rule MakePedFiles:
+    input:
+       normal_list = rules.GetTumorNormalBedLists.output.normal,
+       tumor_list = rules.GetTumorNormalBedLists.output.tumor
+       donor_table = config.donor_table
+    output:
+        normal = f'{conf.outdir}/normals.ped',
+        tumor = f'{conf.outdir}/tumors.ped'
+    conda:
+        'envs/pandas.yaml'
+    shell:
+        """
+        python make_ped_file.py \\
+            {input.normal_list} {input.donor_table} {output.normal}
+        python make_ped_file.py \\
+            {input.tumor_list} {input.donor_table} {output.tumor}
+        """
+        
 rule MakeStixNormalIndex:
 rule MakeStixTumorIndex:
