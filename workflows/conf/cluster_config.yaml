@@ -2,16 +2,16 @@
 
 __default__:
   partition: short
-  time: 00:01:00
+  time: 1000 # minutes
   nodes: 1
   ntasks-per-node: 1
 
 GetTumorNormalBedLists :
   job-name: GetTumorNormalBedLists
   partition: short
-  time: 00:01:00
+  time: 1 # minute
   nodes: 1
-  ntasks-per-node: 1
+  ntasks: 1
   mem: 1gb
   output: log/GetTumornormalBedLists-%j.out
   error: log/GetTumornormalBedLists-%j.err
@@ -19,9 +19,9 @@ GetTumorNormalBedLists :
 MakeGiggleNormal:
   job-name: MakeGiggleNormal
   partition: short
-  time: 00:25:00
+  time: 720 # minutes
   nodes: 1
-  ntasks-per-node: 1
+  ntasks: 1
   mem: 32gb
   output: log/MakeGiggleNormal-%j.out
   error: log/MakeGiggleNormal-%j.err
