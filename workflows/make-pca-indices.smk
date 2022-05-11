@@ -73,5 +73,18 @@ rule MakePedFiles:
             {input.tumor_list} {input.donor_table} {output.tumor}
         """
         
-rule MakeStixNormalIndex:
-rule MakeStixTumorIndex:
+rule MakeStixDBs:
+    input:
+        normal = rules.MakePedFiles.output.normal,
+        tumor = rules.MakePedFiles.output.tumor,
+    output:
+        normal = f'{config.outdir}/normals.ped.db',
+        tumor = f'{config.outdir}/tumors.ped.db',
+    shell:
+        # -c is the column # of Alt_File
+        f"""
+        bin/stix -i {config.beds} -p {input.normal} -d {output.normal} -c 7
+        bin/stix -i {config.beds} -p {input.tumor} -d {output.tumor} -c 7
+        """
+
+rule MakeStixTumorDB:
