@@ -85,8 +85,8 @@ rule MakeStixDBs:
     shell:
         # -c is the column # of Alt_File
         f"""
-        bin/stix -i {config.beds} -p {input.normal} -d {output.normal} -c 7
-        bin/stix -i {config.beds} -p {input.tumor} -d {output.tumor} -c 7
+        bin/stix -i {config.beds} -p {{input.normal}} -d {{output.normal}} -c 7
+        bin/stix -i {config.beds} -p {{input.tumor}} -d {{output.tumor}} -c 7
         """
 
 rule MakeStixTumorDB:
