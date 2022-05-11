@@ -1,0 +1,4 @@
+#!/bin/env bash
+
+rm log/*.out
+rm log/*.err
