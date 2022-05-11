@@ -27,10 +27,12 @@ df.rename(inplace=True,
           columns={'File ID': 'Sample',
                    'ICGC Donor': 'ICGC_Donor',
                    'Specimen ID': 'Specimen_ID',
+                   'Specimen Type': 'Specimen_Type',
                    'Sample ID': 'Sample_ID'},
           )
 df['Alt_File'] = df.apply(lambda x: f'{x.Sample}.excord.bed.gz', axis=1)
 df = df[['Sample', 'ICGC_Donor',
-         'Specimen_ID', 'Sample_ID',
-         'Project', 'Study', 'Alt_File']] \
+         'Specimen_Type', 'Specimen_ID',
+         'Sample_ID', 'Project',
+         'Study', 'Alt_File']] \
          .to_csv(output, sep='\t', index=False)
