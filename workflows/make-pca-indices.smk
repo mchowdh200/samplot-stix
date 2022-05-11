@@ -87,8 +87,8 @@ rule MakeStixDBs:
         f"""
         bin_dir=$PWD/bin
         cd {config.outdir} # track down this bug
-        ./stix -i {config.beds} -p {{input.normal}} -d {{output.normal}} -c 7
-        ./stix -i {config.beds} -p {{input.tumor}} -d {{output.tumor}} -c 7
+        $bin_dir/stix -i {config.beds} -p {{input.normal}} -d {{output.normal}} -c 7
+        $bin_dir/stix -i {config.beds} -p {{input.tumor}} -d {{output.tumor}} -c 7
         """
 
 rule MakeStixTumorDB:
