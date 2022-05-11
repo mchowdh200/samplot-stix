@@ -34,10 +34,11 @@ rule MakeGiggleNormal:
     output:
         # TODO for now I'm just going to touch an output file and see what the
         # outputs are, then modify this section
-        f'{outdir}/normal_giggle_done'
+        f'{config.outdir}/normal_giggle_done'
     shell:
         f"""
-        bin/giggle index -i $(<{{input.bed_list}}) -o {outdir}/normals -s -f
+        bin/giggle index -i $(<{{input.bed_list}}) \\
+            -o {config.outdir}/normals -s -f
         touch {{output}}
         """
 
