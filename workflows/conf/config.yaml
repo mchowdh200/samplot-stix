@@ -6,4 +6,4 @@ beds: "/scratch/Shares/layer/stix/indices/pca/bed"
 donor_table: "data/donor_table.tsv"
 
 # output base directory
-outdir: "/scratch/Shares/layer/stix/workspace"
+outdir: "/scratch/Shares/layer/stix/indices/pca"
