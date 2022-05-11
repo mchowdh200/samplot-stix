@@ -85,8 +85,9 @@ rule MakeStixDBs:
     shell:
         # -c is the column # of Alt_File
         f"""
-        bash scripts/make_ped_db.sh {config.beds} {{input.normal}} {config.outdir} bin/stix
-        bash scripts/make_ped_db.sh {config.beds} {{input.tumor}} {config.outdir} bin/stix
+        stix_bin=$(realpath bin/stix)
+        bash scripts/make_ped_db.sh {config.beds} {{input.normal}} {config.outdir} $stix_bin
+        bash scripts/make_ped_db.sh {config.beds} {{input.tumor}} {config.outdir} $stix_bin
         """
 
 rule MakeStixTumorDB:
