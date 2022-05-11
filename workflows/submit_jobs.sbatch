@@ -9,11 +9,12 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --mem=1gb
-#SBATCH --time=00:20:00 # Time limit hrs:min:sec
+#SBATCH --time=24:00:00 # Time limit hrs:min:sec
 #SBATCH --output=/Users/much8161/Repositories/samplot-stix/workflows/log/snakemake-make-indices.out
 #SBATCH --error=/Users/much8161/Repositories/samplot-stix/workflows/log/snakemake-make-indices.err
 # =============================================================================
 
+# TODO specify disk usage on a per rule basis at least for stix
 snakemake -s make-pca-indices.smk \
           --use-conda --conda-frontend mamba \
           --cluster-config conf/cluster_config.yaml \
