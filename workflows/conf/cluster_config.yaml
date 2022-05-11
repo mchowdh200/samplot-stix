@@ -13,4 +13,15 @@ GetTumorNormalBedLists :
   nodes: 1
   ntasks-per-node: 1
   mem: 1gb
+  output: log/GetTumornormalBedLists-%j.out
   error: log/GetTumornormalBedLists-%j.err
+
+MakeGiggleNormal:
+  job-name: MakeGiggleNormal
+  partition: short
+  time: 12:00:00
+  nodes: 1
+  ntasks-per-node: 1
+  mem: 32gb
+  output: log/MakeGiggleNormal-%j.out
+  error: log/MakeGiggleNormal-%j.err
