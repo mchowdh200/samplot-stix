@@ -3,14 +3,6 @@ import os
 from types import SimpleNamespace
 ## Setup
 # =============================================================================
-# TODO setup directory structure
-#     - data DONE
-#     - worklows DONE
-#     - worklows/scripts DONE
-#     - worklows/conf DONE
-#     - worklows/bin (stix, gargs, etc) DONE
-#     - worklows/envs (conda yamls) TODO
-
 configfile: 'conf/config.yaml'
 config = SimpleNamespace(**config)
 
@@ -19,9 +11,9 @@ config = SimpleNamespace(**config)
 
 rule All:
     input:
-        # f'{config.outdir}/done', # dummy output to check what files are actually output
-        normal = f'{config.outdir}/normal_list.txt',
-        tumor = f'{config.outdir}/tumor_list.txt',
+        f'{outdir}/normal_giggle_done',
+        f'{config.outdir}/normal_list.txt',
+        f'{config.outdir}/tumor_list.txt',
 
 rule GetTumorNormalBedLists:
     input:
@@ -36,8 +28,21 @@ rule GetTumorNormalBedLists:
         bash scripts/get_tumor_file_ids.sh {input.beds} {input.donor_list} {output.normal} {output.tumor}
         """
 
-### TODO may need to split up to create the giggle index
-### TODO can you create one big stix index and then
-### just subset by sample?
+rule MakeGiggleNormal:
+    input:
+        bed_list = rules.GetTumorNormalBedLists.output.normal,
+    output:
+        # TODO for now I'm just going to touch an output file and see what the
+        # outputs are, then modify this section
+        f'{outdir}/normal_giggle_done'
+    shell:
+        f"""
+        bin/giggle index -i $(<{{input.bed_list}}) -o {outdir}/normals -s -f
+        touch {{output}}
+        """
+
+
+
+rule MakeGiggleTumor:
 rule MakeStixNormalIndex:
 rule MakeStixTumorIndex:
