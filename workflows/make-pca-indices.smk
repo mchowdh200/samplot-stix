@@ -7,9 +7,10 @@ config = SimpleNamespace(**config)
 
 rule All:
     input:
-        rules.MakePedFiles.output,
-        rules.MakeGiggleNormal.output,
-        rules.MakeGiggleTumor.output,
+        f'{config.outdir}/normals', # directory
+        f'{config.outdir}/tumors',  # directory
+        f'{config.outdir}/normals.ped',
+        f'{config.outdir}/tumors.ped'
 
 rule GetTumorNormalBedLists:
     input:
