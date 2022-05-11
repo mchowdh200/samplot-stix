@@ -19,7 +19,7 @@ GetTumorNormalBedLists :
 MakeGiggleNormal:
   job-name: MakeGiggleNormal
   partition: short
-  time: 12:00:00
+  time: 5:00:00
   nodes: 1
   ntasks-per-node: 1
   mem: 32gb
