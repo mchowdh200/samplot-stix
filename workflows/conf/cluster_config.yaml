@@ -25,3 +25,13 @@ MakeGiggleNormal:
   mem: 32gb
   output: log/MakeGiggleNormal-%j.out
   error: log/MakeGiggleNormal-%j.err
+
+MakeGiggleTumor:
+  job-name: MakeGiggleTumor
+  partition: short
+  time: 720 # minutes
+  nodes: 1
+  ntasks: 1
+  mem: 32gb
+  output: log/MakeGiggleTumor-%j.out
+  error: log/MakeGiggleTumor-%j.err
