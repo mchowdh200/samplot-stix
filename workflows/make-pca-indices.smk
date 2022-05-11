@@ -10,7 +10,9 @@ rule All:
         f'{config.outdir}/normals', # directory
         f'{config.outdir}/tumors',  # directory
         f'{config.outdir}/normals.ped',
-        f'{config.outdir}/tumors.ped'
+        f'{config.outdir}/tumors.ped',
+        f'{config.outdir}/normals.ped.db',
+        f'{config.outdir}/tumors.ped.db',
 
 rule GetTumorNormalBedLists:
     input:
