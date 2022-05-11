@@ -9,7 +9,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --mem=1gb
-#SBATCH --time=24:00:00 # Time limit hrs:min:sec
+#SBATCH --time=12:00:00 # Time limit hrs:min:sec
 #SBATCH --output=/Users/much8161/Repositories/samplot-stix/workflows/log/snakemake-make-indices.out
 #SBATCH --error=/Users/much8161/Repositories/samplot-stix/workflows/log/snakemake-make-indices.err
 # =============================================================================
