@@ -9,8 +9,8 @@ rule All:
     input:
         f'{config.outdir}/normals', # directory
         f'{config.outdir}/tumors',  # directory
-        f'{config.outdir}/normal_list.txt',
-        f'{config.outdir}/tumor_list.txt',
+        f'{conf.outdir}/normals.ped',
+        f'{conf.outdir}/tumors.ped'
 
 rule GetTumorNormalBedLists:
     input:
@@ -58,7 +58,7 @@ rule MakeGiggleTumor:
 rule MakePedFiles:
     input:
        normal_list = rules.GetTumorNormalBedLists.output.normal,
-       tumor_list = rules.GetTumorNormalBedLists.output.tumor
+       tumor_list = rules.GetTumorNormalBedLists.output.tumor,
        donor_table = config.donor_table
     output:
         normal = f'{conf.outdir}/normals.ped',
