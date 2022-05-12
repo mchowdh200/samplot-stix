@@ -28,10 +28,10 @@ rule GetTumorNormalBedLists:
         """
 
 rule PartitionBeds:
-"""
-Using the normal/tumor lists, create separate directories
-containing symlinks to the originals.
-"""
+    """
+    Using the normal/tumor lists, create separate directories
+    containing symlinks to the originals.
+    """
     input:
         normal_beds = rules.GetTumorNormalBedLists.output.normal,
         tumor_beds = rules.GetTumorNormalBedLists.output.tumor
@@ -54,8 +54,6 @@ rule MakeGiggleNormal:
     threads:
         1
     shell:
-        ## TODO make a rule that just moves the tumor / normals
-        ## into their own directories (OR just do before)
         f"""
         bin/giggle index -i {config.beds}/$(<{{input.bed_list}}) \\
             -o {{output}} -s -f
