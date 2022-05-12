@@ -7,7 +7,7 @@ config = SimpleNamespace(**config)
 
 rule All:
     input:
-        expand(f'{config.outdir}/{{specimen_type}}_symlinks',
+        expand(f'{config.outdir}/{{specimen_type}}_giggle',
                specimen_type=['tumor', 'normal'])
         # f'{config.outdir}/normal_symlinks', # directory
         # f'{config.outdir}/tumor_symlinks',  # directory
