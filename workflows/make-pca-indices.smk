@@ -40,8 +40,8 @@ rule PartitionBeds:
         tumor = directory(f'{config.outdir}/tumor_symlinks')
     shell:
         f"""
-        bash scripts/make_symlinks.sh {{input.normal_beds}} {config.beds} {config.outdir}
-        bash scripts/make_symlinks.sh {{input.tumor_beds}} {config.beds} {config.outdir}
+        bash scripts/make_symlinks.sh {{input.normal_beds}} {config.beds} {{output.normal}}
+        bash scripts/make_symlinks.sh {{input.tumor_beds}} {config.beds} {{output.tumor}}
         """
 
 ## Giggle Indices
