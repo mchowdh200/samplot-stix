@@ -7,12 +7,12 @@ config = SimpleNamespace(**config)
 
 rule All:
     input:
-        f'{config.outdir}/normals', # directory
-        f'{config.outdir}/tumors',  # directory
-        f'{config.outdir}/normals.ped',
-        f'{config.outdir}/tumors.ped',
-        f'{config.outdir}/normals.ped.db',
-        f'{config.outdir}/tumors.ped.db',
+        f'{config.outdir}/normal_symlinks', # directory
+        f'{config.outdir}/tumor_symlinks',  # directory
+        # f'{config.outdir}/normals.ped',
+        # f'{config.outdir}/tumors.ped',
+        # f'{config.outdir}/normals.ped.db',
+        # f'{config.outdir}/tumors.ped.db',
 
 rule GetTumorNormalBedLists:
     input:
@@ -27,6 +27,23 @@ rule GetTumorNormalBedLists:
         bash scripts/get_tumor_file_ids.sh {input.beds} {input.donor_list} {output.normal} {output.tumor}
         """
 
+rule PartitionBeds:
+"""
+Using the normal/tumor lists, create separate directories
+containing symlinks to the originals.
+"""
+    input:
+        normal_beds = rules.GetTumorNormalBedLists.output.normal,
+        tumor_beds = rules.GetTumorNormalBedLists.output.tumor
+    output:
+        normal = directory(f'{config.outdir}/normal_symlinks')
+        tumor = directory(f'{config.outdir}/tumor_symlinks')
+    shell:
+        f"""
+        bash scripts/make_symlinks.sh {{input.normal}} {config.beds} {config.outdir}
+        bash scripts/make_symlinks.sh {{input.tumor}} {config.beds} {config.outdir}
+        """
+
 ## Giggle Indices
 # =============================================================================
 rule MakeGiggleNormal:
@@ -37,6 +54,8 @@ rule MakeGiggleNormal:
     threads:
         1
     shell:
+        ## TODO make a rule that just moves the tumor / normals
+        ## into their own directories (OR just do before)
         f"""
         bin/giggle index -i {config.beds}/$(<{{input.bed_list}}) \\
             -o {{output}} -s -f
