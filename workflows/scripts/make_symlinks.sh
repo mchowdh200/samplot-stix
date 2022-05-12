@@ -5,6 +5,6 @@ beddir=$2
 outdir=$3
 
 mkdir -p $outdir
-for b in $beds; do
+for b in $(cat $beds); do
     ln -s "$beddir/$b" "$outdir/$b"
 done
