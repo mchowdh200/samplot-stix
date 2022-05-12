@@ -7,8 +7,10 @@ config = SimpleNamespace(**config)
 
 rule All:
     input:
-        f'{config.outdir}/normal_symlinks', # directory
-        f'{config.outdir}/tumor_symlinks',  # directory
+        expand(f'{config.outdir}/{{specimen_type}}_symlinks',
+               specimen_type=['tumor', 'normal'])
+        # f'{config.outdir}/normal_symlinks', # directory
+        # f'{config.outdir}/tumor_symlinks',  # directory
         # f'{config.outdir}/normals.ped',
         # f'{config.outdir}/tumors.ped',
         # f'{config.outdir}/normals.ped.db',
@@ -46,31 +48,31 @@ rule PartitionBeds:
 
 ## Giggle Indices
 # =============================================================================
-rule MakeGiggleNormal:
+rule MakeGiggleIndex:
     input:
-        bed_list = rules.GetTumorNormalBedLists.output.normal,
+        # rules.PartitionBeds.output.normal,
+        f'{config.outdir}/{{specimen_type}}_symlinks'
     output:
-        directory(f'{config.outdir}/normals')
+        directory(f'{config.outdir}/{{specimen_type}}_giggle')
     threads:
         1
     shell:
-        f"""
-        bin/giggle index -i {config.beds}/$(<{{input.bed_list}}) \\
-            -o {{output}} -s -f
+        """
+        bin/giggle index -i {input}/*.bed.gz -o {output} -s -f
         """
 
-rule MakeGiggleTumor:
-    input:
-        bed_list = rules.GetTumorNormalBedLists.output.tumor,
-    output:
-        directory(f'{config.outdir}/tumors')
-    threads:
-        1
-    shell:
-        f"""
-        bin/giggle index -i {config.beds}/$(<{{input.bed_list}}) \\
-            -o {{output}} -s -f
-        """
+# rule MakeGiggleTumor:
+#     input:
+#         bed_list = rules.GetTumorNormalBedLists.output.tumor,
+#     output:
+#         directory(f'{config.outdir}/tumors')
+#     threads:
+#         1
+#     shell:
+#         f"""
+#         bin/giggle index -i {config.beds}/$(<{{input.bed_list}}) \\
+#             -o {{output}} -s -f
+#         """
 
 ## Stix Indices
 # ==============================================================================
