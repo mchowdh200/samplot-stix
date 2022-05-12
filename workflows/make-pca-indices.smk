@@ -58,7 +58,7 @@ rule MakeGiggleIndex:
         1
     shell:
         """
-        bin/giggle index -i {input}/*.bed.gz -o {output} -s -f
+        bin/giggle index -i "{input}/*.gz" -o {output} -s -f
         """
 
 # rule MakeGiggleTumor:
