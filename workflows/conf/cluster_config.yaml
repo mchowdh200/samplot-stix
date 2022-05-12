@@ -1,7 +1,7 @@
 # used to configure job submission at the global/rule level
 
 __default__:
-  job-name: "{rule}-{wildcards.specimen_type}"
+  job-name: "{rule}"
   partition: short
   time: 10 # minutes
   nodes: 1
@@ -12,6 +12,7 @@ __default__:
   error: "log/{rule}-%j.err"
 
 MakeGiggleIndex:
+  job-name: "{rule}-{wildcards.specimen_type}"
   time: 720 # minutes
   nodes: 1
   ntasks: 1
