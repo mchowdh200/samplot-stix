@@ -36,7 +36,7 @@ rule PartitionBeds:
         normal_beds = rules.GetTumorNormalBedLists.output.normal,
         tumor_beds = rules.GetTumorNormalBedLists.output.tumor
     output:
-        normal = directory(f'{config.outdir}/normal_symlinks')
+        normal = directory(f'{config.outdir}/normal_symlinks'),
         tumor = directory(f'{config.outdir}/tumor_symlinks')
     shell:
         f"""
