@@ -13,7 +13,8 @@ __default__:
 
 MakeGiggleIndex:
   job-name: "{rule}-{wildcards.specimen_type}"
-  time: 720 # minutes
+  partition: long
+  time: 10080 # minutes
   nodes: 1
   ntasks: 1
   mem: 32gb

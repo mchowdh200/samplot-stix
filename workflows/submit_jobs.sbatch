@@ -2,14 +2,14 @@
 # Main snakemake job:
 # Submits snakemake jobs as individual slurm jobs
 # =============================================================================
-#SBATCH -p short # Partition or queue. In this case, short!
+#SBATCH -p long # Partition or queue. In this case, short!
 #SBATCH --job-name=snakemake-make-indices
 #SBATCH --mail-type=None # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=much8161@colorado.edu
 #SBATCH --nodes=1
 #SBATCH --ntasks=4
 #SBATCH --mem=1gb
-#SBATCH --time=12:00:00 # Time limit hrs:min:sec
+#SBATCH --time=168:00:00 # Time limit hrs:min:sec
 #SBATCH --output=/Users/much8161/Repositories/samplot-stix/workflows/log/snakemake-make-indices.out
 #SBATCH --error=/Users/much8161/Repositories/samplot-stix/workflows/log/snakemake-make-indices.err
 # =============================================================================
