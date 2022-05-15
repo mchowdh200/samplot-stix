@@ -7,6 +7,8 @@ config = SimpleNamespace(**config)
 
 rule All:
     input:
+        expand(f'{config.outdir}/{{specimen_type}}.ped',
+               specimen_type=['tumor', 'normal']),
         expand(f'{config.outdir}/{{specimen_type}}_giggle',
                specimen_type=['tumor', 'normal'])
         # f'{config.outdir}/normal_symlinks', # directory
@@ -61,38 +63,24 @@ rule MakeGiggleIndex:
         bin/giggle index -i "{input}/*.gz" -o {output} -s -f
         """
 
-# rule MakeGiggleTumor:
-#     input:
-#         bed_list = rules.GetTumorNormalBedLists.output.tumor,
-#     output:
-#         directory(f'{config.outdir}/tumors')
-#     threads:
-#         1
-#     shell:
-#         f"""
-#         bin/giggle index -i {config.beds}/$(<{{input.bed_list}}) \\
-#             -o {{output}} -s -f
-#         """
 
 ## Stix Indices
 # ==============================================================================
-# rule MakePedFiles:
-#     input:
-#        normal_list = rules.GetTumorNormalBedLists.output.normal,
-#        tumor_list = rules.GetTumorNormalBedLists.output.tumor,
-#        donor_table = config.donor_table
-#     output:
-#         normal = f'{config.outdir}/normals.ped',
-#         tumor = f'{config.outdir}/tumors.ped'
-#     conda:
-#         'envs/pandas.yaml'
-#     shell:
-#         """
-#         python scripts/make_ped_file.py \\
-#             {input.normal_list} {input.donor_table} {output.normal}
-#         python scripts/make_ped_file.py \\
-#             {input.tumor_list} {input.donor_table} {output.tumor}
-#         """
+rule MakePedFile:
+    input:
+       list = f'{config.outdir}/{{specimen_type}}_list.txt',
+       donor_table = config.donor_table
+    output:
+        f'{config.outdir}/{{specimen_type}}.ped',
+    conda:
+        'envs/pandas.yaml'
+    shell:
+        """
+        python scripts/make_ped_file.py \\
+            {input.normal_list} {input.donor_table} {output.normal}
+        python scripts/make_ped_file.py \\
+            {input.tumor_list} {input.donor_table} {output.tumor}
+        """
         
 # rule MakeStixDBs:
 #     input:

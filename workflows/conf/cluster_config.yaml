@@ -18,3 +18,5 @@ MakeGiggleIndex:
   nodes: 1
   ntasks: 1
   mem: 32gb
+  output: "log/{rule}-{wildcards.specimen_type}-%j.out"
+  error: "log/{rule}-{wildcards.specimen_type}-%j.err"
