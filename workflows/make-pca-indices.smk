@@ -77,9 +77,7 @@ rule MakePedFile:
     shell:
         """
         python scripts/make_ped_file.py \\
-            {input.normal_list} {input.donor_table} {output.normal}
-        python scripts/make_ped_file.py \\
-            {input.tumor_list} {input.donor_table} {output.tumor}
+            {input.list} {input.donor_table} {output}
         """
         
 # rule MakeStixDBs:
