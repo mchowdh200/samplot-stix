@@ -24,7 +24,7 @@ snakemake -s make-pca-indices.smk \
                             -n {cluster.ntasks} \\
                             -p {cluster.partition} \\
                             --mem={cluster.mem} \\
-                            --output {cluster.output}
+                            --output {cluster.output} \\
                             --error {cluster.error}" \
           --jobs 4 --cores 4
 
