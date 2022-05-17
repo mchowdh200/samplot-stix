@@ -84,7 +84,20 @@ rule MakeStixDBs:
     output:
         f'{config.outdir}/{{specimen_type}}.ped.db',
     shell:
-        f"""
-        bin/stix -i {{input.giggle_index}} -p {{input.ped}} -d {{output}} -c 8 #col of alt_file
+        """
+        bin/stix -i {input.giggle_index} -p {input.ped} -d {output} -c 8 #col of alt_file
         """
 
+## TEST query in ERG/TMPRSS2
+rule QueryTest:
+    input:
+        giggle_index = rules.MakeGiggleIndex.output,
+        db = rules.MakeStixDBs.output,
+    output:
+        f'{config.outdir}/{{specimen_type}}.query-test.bed'
+    shell:
+        """
+        bin/stix -i {input.giggle_index} -d {input.db} -s 500 -t DEL \\
+        -l 21:39739556-40033707 \\
+        -r 21:42838046-42879931 > {output}
+        """
