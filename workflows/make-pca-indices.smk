@@ -80,7 +80,7 @@ rule MakePedFile:
 rule MakeStixDBs:
     input:
         giggle_index = rules.MakeGiggleIndex.output,
-        ped = rules.MakePedFiles.output,
+        ped = rules.MakePedFile.output,
     output:
         f'{config.outdir}/{{specimen_type}}.ped.db',
     shell:
