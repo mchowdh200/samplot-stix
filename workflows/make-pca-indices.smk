@@ -85,9 +85,6 @@ rule MakeStixDBs:
         f'{config.outdir}/{{specimen_type}}.ped.db',
     shell:
         f"""
-        # stix_bin=$(realpath bin/stix)
-        # bash scripts/make_ped_db.sh {{input.giggle_normal}} {{input.normal}} {config.outdir} $stix_bin
-        # bash scripts/make_ped_db.sh {{input.giggle_tumor}} {{input.tumor}} {config.outdir} $stix_bin
         bin/stix -i {{input.giggle_index}} -p {{input.ped}} -d {{output}} -c 8 #col of alt_file
         """
 
