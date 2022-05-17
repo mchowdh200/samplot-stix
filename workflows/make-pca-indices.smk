@@ -7,6 +7,8 @@ config = SimpleNamespace(**config)
 
 rule All:
     input:
+        expand(f'{config.outdir}/{{specimen_type}}.query-test.bed',
+               specimen_type=['tumor', 'normal']),
         expand(f'{config.outdir}/{{specimen_type}}.ped.db',
                specimen_type=['tumor', 'normal']),
         expand(f'{config.outdir}/{{specimen_type}}.ped',
