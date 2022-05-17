@@ -20,3 +20,7 @@ MakeGiggleIndex:
   mem: 32gb
   output: "log/{rule}-{wildcards.specimen_type}-%j.out"
   error: "log/{rule}-{wildcards.specimen_type}-%j.err"
+
+QueryTest:
+  time: 5
+  mem: 8gb
