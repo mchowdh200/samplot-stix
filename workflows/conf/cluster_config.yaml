@@ -22,5 +22,5 @@ MakeGiggleIndex:
   error: "log/{rule}-{wildcards.specimen_type}-%j.err"
 
 QueryTest:
-  time: 5
-  mem: 8gb
+  time: 60
+  mem: 16gb
