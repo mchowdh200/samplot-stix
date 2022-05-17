@@ -7,16 +7,14 @@ config = SimpleNamespace(**config)
 
 rule All:
     input:
+        expand(f'{config.outdir}/{{specimen_type}}.ped.db',
+               specimen_type=['tumor', 'normal']),
         expand(f'{config.outdir}/{{specimen_type}}.ped',
                specimen_type=['tumor', 'normal']),
-        expand(f'{config.outdir}/{{specimen_type}}_giggle',
-               specimen_type=['tumor', 'normal'])
-        # f'{config.outdir}/normal_symlinks', # directory
-        # f'{config.outdir}/tumor_symlinks',  # directory
-        # f'{config.outdir}/normals.ped',
-        # f'{config.outdir}/tumors.ped',
-        # f'{config.outdir}/normals.ped.db',
-        # f'{config.outdir}/tumors.ped.db',
+        expand(f'{config.outdir}/{{specimen_type}}.ped',
+               specimen_type=['tumor', 'normal']),
+        # expand(f'{config.outdir}/{{specimen_type}}_giggle',
+        #        specimen_type=['tumor', 'normal'])
 
 rule GetTumorNormalBedLists:
     input:
@@ -52,7 +50,6 @@ rule PartitionBeds:
 # =============================================================================
 rule MakeGiggleIndex:
     input:
-        # rules.PartitionBeds.output.normal,
         f'{config.outdir}/{{specimen_type}}_symlinks'
     output:
         directory(f'{config.outdir}/{{specimen_type}}_giggle')
@@ -60,7 +57,7 @@ rule MakeGiggleIndex:
         1
     shell:
         """
-        bin/giggle index -i "{input}/*.gz" -o {output} -s -f
+        bin/giggle index -i "{input}/*.gz" -o {output} -s
         """
 
 
@@ -80,21 +77,17 @@ rule MakePedFile:
             {input.list} {input.donor_table} {output}
         """
         
-# rule MakeStixDBs:
-#     input:
-#         giggle_normal = rules.MakeGiggleNormal.output,
-#         giggle_tumor = rules.MakeGiggleTumor.output,
-#         normal = rules.MakePedFiles.output.normal,
-#         tumor = rules.MakePedFiles.output.tumor,
-#     output:
-#         normal = f'{config.outdir}/normals.ped.db',
-#         tumor = f'{config.outdir}/tumors.ped.db',
-#     shell:
-#         # -c is the column # of Alt_File
-#         f"""
-#         stix_bin=$(realpath bin/stix)
-#         bash scripts/make_ped_db.sh {{input.giggle_normal}} {{input.normal}} {config.outdir} $stix_bin
-#         bash scripts/make_ped_db.sh {{input.giggle_tumor}} {{input.tumor}} {config.outdir} $stix_bin
-#         """
+rule MakeStixDBs:
+    input:
+        giggle_index = rules.MakeGiggleIndex.output,
+        ped = rules.MakePedFiles.output,
+    output:
+        f'{config.outdir}/{{specimen_type}}.ped.db',
+    shell:
+        f"""
+        # stix_bin=$(realpath bin/stix)
+        # bash scripts/make_ped_db.sh {{input.giggle_normal}} {{input.normal}} {config.outdir} $stix_bin
+        # bash scripts/make_ped_db.sh {{input.giggle_tumor}} {{input.tumor}} {config.outdir} $stix_bin
+        bin/stix -i {{input.giggle_index}} -p {{input.ped}} -d {{output}} -c 8 #col of alt_file
+        """
 
-# rule MakeStixTumorDB:
